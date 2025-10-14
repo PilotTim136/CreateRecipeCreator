@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor - CRR</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="editor.css">
+</head>
+<body>
+    <div id="workspace">
+        <div id="topNavBar"></div>
+        <div id="editor"></div>
+    </div>
+
+    <div id="projects" hidden>
+        <center><h1>Projects</h1></center>
+    </div>
+
+    <div id="contextMenu" hidden>
+        <button id="deleteFile">Delete</button>
+    </div>
+
+    <script src="jszip.min.js"></script>
+    <script src="jsonConverter.js"></script>
+    <script src="uiHelper.js"></script>
+    <script src="ui.js"></script>
+    <script src="navBar.js"></script>
+    <script src="projectLoader.js"></script>
+    <script src="contextMenu.js"></script>
+</body>
+</html>
