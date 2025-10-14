@@ -18,3 +18,12 @@ Currently supporting versions:
 3. Click on "create project" and give it a name
 4. configure your mcmeta (version, description)
 5. click on the plus to add a recipe
+
+## Notes
+- Works fully offline  
+- Designed for mod & datapack developers using the Create mod
+- Recipes are generated locally in your browser
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Made with HTML](https://img.shields.io/badge/Made%20with-HTML-orange)]()
+[![Create Mod](https://img.shields.io/badge/Create%20Mod-Compatible-blueviolet)]()
