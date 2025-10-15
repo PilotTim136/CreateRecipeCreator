@@ -1,5 +1,5 @@
 const mainCreator = {
-    version: "1.1.2 - HOTFIX",
+    version: "1.1.3 - FIX",
     func: {
         show: function(){
             const footer = document.createElement("div");

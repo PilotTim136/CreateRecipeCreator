@@ -46,7 +46,7 @@ function CreateProject(){
     };
     tj.push(j.name);
     localStorage.setItem("projects", JSON.stringify(tj));
-    localStorage.setItem(j.name, "[]");
+    localStorage.setItem(j.name, "[{\"name\":\"mcmeta\",\"content\":{}}]");
     window.location.href = "create.html?project=" + j.name;
 }
 
