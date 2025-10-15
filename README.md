@@ -46,3 +46,12 @@ Currently supporting versions:
 ## Why
 Writing Create recipes manually can be repetitive and error-prone,  
 so this tool automates and simplifies the process.
+
+---
+
+## What's next?
+Currently, I plan on adding things based on those priorities:
+1. More create-mod recipes (Sequenced assembly, ...)
+2. Vanilla compatibility (Crafting table, furnace, ...)
+3. (maybe) autocomplete for minecraft and (maybe) create-mod items in the recipe creator
+4. (maybe) support for create-mod addons
