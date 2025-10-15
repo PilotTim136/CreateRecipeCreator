@@ -1,5 +1,4 @@
 const contextMenu = document.getElementById("contextMenu");
-let currentFile = null;
 
 fileDiv.addEventListener("contextmenu", e => {
     e.preventDefault();

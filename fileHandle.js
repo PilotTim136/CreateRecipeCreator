@@ -1,5 +1,6 @@
 const fileDiv = document.getElementById("files");
 var files = [];
+var currentFile = "";
 
 function saveAll(){
     const f = JSON.stringify(files);
@@ -56,6 +57,7 @@ function loadFile(lf){
     saveAll();
     console.log("Loading file: " + lf);
     const f = files.find(file => file.name === lf);
+    currentFile = f.name;
     if(f.name === "mcmeta"){
         DoMetaUI(f);
         return;

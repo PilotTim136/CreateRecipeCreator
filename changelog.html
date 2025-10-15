@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - CRR</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        label{
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <h1>Create Recipe Creator</h1>
+        <a href="index.html"><button>Home</button></a>
+        <a href="create.html"><button>Create Recipe</button></a>
+    </center>
+    <hr>
+    <fieldset>
+        <h3>1.2.0 - Generator update</h3>
+        <ul>
+            <li>Added generators (<code>create-1_20_1-6_0_6</code>, <code>create-1_21_1-6_0_6</code>)</li>
+            <label>Why? - This makes development easier in the future, especially when being able to enable/disable certain
+            generators without loading every single one.</label><br><br>
+
+            <li>Marked old Generator (<code>JSONify</code>) (now deprecated and in <code>legacy/JSONify.js</code>)</li>
+            <label>Why? - Because of old code that will be harder to upgrade with minecraft and create versions,
+                as generators are easier to develop as well.</label><br><br>
+            
+            <li>Added changelog</li>
+            <label>Why? - For easier tracking of changes you might have missed.</label>
+        </ul>
+    </fieldset>
+
+    <script src="main.js"></script>
+</body>
+</html>

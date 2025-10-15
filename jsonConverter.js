@@ -1,72 +1,10 @@
-function JSONify(file){
-    const cnt = cud.content || {};
-    cnt.heatReq = cnt.heatReq || "none";
-    
-    let base = {};
-    if(file === "mcmeta"){
-        let format = 0;
-        if(ver === "1.20.1"){
-            format = 15;
-        }else if(ver === "1.21.1"){
-            format = 48;
-        }
-        base = {
-            pack: {
-                pack_format: format,
-                description: cnt.description || "A datapack created with Create Recipe Creator!"
-            }
-        };
-        return base;
-    }
-
-    let ingredients = [];
-    if(cnt.ingredients)
-    cnt.ingredients.forEach(ing => {
-        let num = Number(ing.count);
-        if(!ing.isFluid){
-            for(let i = 0; i < (ing.count || 1); i++){
-                ingredients.push({item: ing.item || "minecraft:stone"});
-            }
-        }else{
-            if(num < 1 || num > 1000 || !num) num = 500;
-            ingredients.push({...(ver === "1.21.1" ? {type: "fluid_stack"} : {}),
-            fluid: ing.item || "minecraft:water", amount: num});
-        }
-    });
-
-    let results = [];
-    if(cnt.results)
-    cnt.results.forEach(ing => {
-        let num = Number(ing.count);
-        let cha = Number(ing.chance);
-        if(!ing.isFluid){
-            if(num < 1 || num > 64) num = 1;
-            results.push({...(ver === "1.21.1" ? {id: ing.item || "minecraft:stone"} : {item: ing.item || "minecraft:stone"})
-                , count: num,
-                ...(cha && cha > 0 && cha < 100 ? { chance: (cha / 100) } : {})
-            });
-        }else{
-            if(num < 1 || num > 1000 || !num) num = 500;
-            results.push({...(ver === "1.21.1" ? {id: ing.item || "minecraft:water"} : {fluid: ing.item || "minecraft:water"}) || "minecraft:water", amount: num});
-        }
-    });
-
-
-    let numprcst = Number(cnt.processingTime);
-    base = {
-        type: "create:" + (cnt.type || "compacting"),
-        ...(cnt.heatReq !== "none" ? (ver === "1.21.1" ? { heat_requirement: cnt.heatReq } : { heatRequirement: cnt.heatReq }) : {}),
-        "ingredients": ingredients,
-        "results": results,
-        ...(numprcst > 19 ? { processingTime: numprcst } : {})
-    }
-    return base;
-}
-
 function GetJSON(name){
     const f = files.find(file => file.name === name);
     if(!f) return;
-    return JSON.stringify(JSONify(name), null, 4);
+    const c = GetCombined("create", ver, "6.0.6");
+    console.log(`using generator "${c}"`);
+    if(qGenerator[c]) qGenerator[c]();
+    else return JSON.stringify(JSONify(name), null, 4);
 }
 
 function downloadJSON(name) {
