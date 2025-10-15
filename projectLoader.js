@@ -1,5 +1,6 @@
 var projectSel = true;
 var ver = "1.20.1";
+var _project = "<undefined>";
 
 function GetProjectNames(){
     if(localStorage.getItem("projects") !== null){
@@ -21,11 +22,11 @@ function ProjectSelection(){
     projectList.innerHTML += `<center><input id="name" placeholder="project name"><button onclick="CreateProject()">Create Project</button><br></center>`;
 }
 
-function LoadProject(name){
+function LoadProject(name, file = "mcmeta"){
     console.log("Loading project: " + name + "...");
-    const pf = JSON.parse(localStorage.getItem(name));
-    LoadAllFiles(pf);
-    loadFile("mcmeta");
+    _project = name;
+    loadAll();
+    loadFile(GetQuery("file") || file);
 }
 
 function LoadProjectToUrl(name){

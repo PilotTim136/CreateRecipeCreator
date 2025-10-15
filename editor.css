@@ -11,7 +11,7 @@
     transform: translate(-50%, -50%);
 }
 
-#topNavBar{
+#files{
     display: flex; 
     position: absolute;
     top: 0;
@@ -22,7 +22,7 @@
     overflow-y: hidden;
 }
 
-#topNavBar button{
+#files button{
     flex: 1;
     margin: 2px;
     min-width: 50px;
@@ -38,25 +38,25 @@
 }
 
 #contextMenu {
-  position: absolute;
-  background-color: #222;
-  color: white;
-  border: 1px solid #444;
-  border-radius: 5px;
-  display: none;
-  flex-direction: column;
-  padding: 5px;
-  z-index: 1000;
+    position: absolute;
+    background-color: #222;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 5px;
+    display: none;
+    flex-direction: column;
+    padding: 5px;
+    z-index: 1000;
 }
 #contextMenu button {
-  background: none;
-  border: none;
-  color: white;
-  padding: 6px 10px;
-  text-align: left;
-  width: 100%;
-  cursor: pointer;
+    background: none;
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
 }
 #contextMenu button:hover {
-  background-color: #555;
+    background-color: #555;
 }

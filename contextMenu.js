@@ -1,7 +1,7 @@
 const contextMenu = document.getElementById("contextMenu");
 let currentFile = null;
 
-navBar.addEventListener("contextmenu", e => {
+fileDiv.addEventListener("contextmenu", e => {
     e.preventDefault();
 
     if (e.target.tagName === "BUTTON") {
@@ -33,7 +33,7 @@ function deleteFile(name) {
     const index = files.findIndex(f => f.name === name);
     if (index !== -1) {
         files.splice(index, 1);
-        refreshTree();
+        refreshFileTree();
         saveAll();
         console.log("Deleted file: ", name);
     }

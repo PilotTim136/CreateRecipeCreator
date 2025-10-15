@@ -12,17 +12,17 @@ function DoMetaUI(j){
     cud = j;
     const description = j.content?.description || "";
     editor.innerHTML = `<code><center><h1>mcmeta</h1>This is the metadata file for your datapack.<br>
-                    This is needed for minecraft to recognize your datapack.<br>
-                    <button onclick="copyJSON('mcmeta')">Copy JSON</button>
-                    <button onclick="downloadJSON('mcmeta')">Save JSON</button>
-                    <button onclick="downloadZIP()">Save ZIP</button></center></code>
-                    
-                    Version: <select id="ver" name="options" onchange="SetFileData('pack_format', this.value)">
-                        <option value="1.20.1">1.20.1 - Create 6.0.6</option>
-                        <option value="1.21.1">1.21.1 - Create 6.0.6</option>
-                    </select><br>
-                    Description: <textarea id="desc" onchange="SetFileData('description', this.value)" rows="1" cols="46"
-                    placeholder="A datapack created with Create Recipe Creator!">${description}</textarea><br>`;
+    This is needed for minecraft to recognize your datapack.<br>
+    <button onclick="copyJSON('mcmeta')">Copy JSON</button>
+    <button onclick="downloadJSON('mcmeta')">Save JSON</button>
+    <button onclick="downloadZIP()">Save ZIP</button></center></code>
+    
+    Version: <select id="ver" name="options" onchange="SetFileData('pack_format', this.value)">
+        <option value="1.20.1">1.20.1 - Create 6.0.6</option>
+        <option value="1.21.1">1.21.1 - Create 6.0.6</option>
+    </select><br>
+    Description: <textarea id="desc" onchange="SetFileData('description', this.value)" rows="1" cols="46"
+    placeholder="A datapack created with Create Recipe Creator!">${description}</textarea><br>`;
     LoadFileData(j);
 }
 
@@ -87,10 +87,6 @@ function DoUI(j){
     }
 }
 
-function UIChange(){
-    DoUI(cud);
-}
-
 function displayIngredients(){
     editor.innerHTML += `<button onclick="AddIngredient()">New ingredient</button><br>`;
     const e = validateIngredient(false);
@@ -121,4 +117,9 @@ function displayResults(forceItem = false){
         </fieldset>`;
         if(forceItem) SetFileData(`results.${i}.isFluid`, false, false);
     });
+}
+
+//needed for other scripts when inputs get changed
+function UIChange(){
+    DoUI(cud);
 }

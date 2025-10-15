@@ -1,3 +1,8 @@
+function GetQuery(q){
+    let urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(q);
+}
+
 function removeIngredient(i){
     validateIngredient();
     cud.content.ingredients.splice(i, 1);

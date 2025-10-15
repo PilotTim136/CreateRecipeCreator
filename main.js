@@ -1,8 +1,17 @@
-const crcVer = "1.1";
+const mainCreator = {
+    version: "1.1.2 - HOTFIX",
+    func: {
+        show: function(){
+            const footer = document.createElement("div");
+            footer.id = "footer";
+            footer.innerHTML = `
+                Version: ${mainCreator.version}<br>
+                Made by <code>PilotTim136</code><br>
+                Github: <a href="https://github.com/PilotTim136/CreateRecipeCreator">CreateRecipeCreator</a>
+            `;
+            document.body.appendChild(footer);
+        }
+    }
+}
 
-document.body.innerHTML += `
-<div id="footer">
-    Version: ${crcVer}<br>
-    Made by <code>PilotTim136</code><br>
-    Github: <a href="https://github.com/PilotTim136/CreateRecipeCreator">CreateRecipeCreator</a>
-</div>`;
+mainCreator.func.show();
