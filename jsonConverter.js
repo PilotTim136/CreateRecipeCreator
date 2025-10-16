@@ -3,8 +3,11 @@ function GetJSON(name){
     if(!f) return;
     const c = GetCombined("create", ver, "6.0.6");
     console.log(`using generator "${c}"`);
-    if(qGenerator[c]) qGenerator[c]();
-    else return JSON.stringify(JSONify(name), null, 4);
+    if(qGenerator[c]) return qGenerator[c]();
+    else{
+        console.warn(`Trying to GET JSON, but no valid generator (${c}) was found.`);
+        return {};
+    }
 }
 
 function downloadJSON(name) {

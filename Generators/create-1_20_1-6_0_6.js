@@ -13,7 +13,7 @@ generator.create.v1_20_1 = {
                     description: cnt.description || "A datapack created with Create Recipe Creator!"
                 }
             };
-            return base;
+            return JSON.stringify(base, null, 4);
         }
 
         let ingredients = [];
@@ -55,7 +55,7 @@ generator.create.v1_20_1 = {
             "results": results,
             ...(numprcst > 19 ? { processingTime: numprcst } : {})
         }
-        return base;
+        return JSON.stringify(base, null, 4);
     }
 };
 
