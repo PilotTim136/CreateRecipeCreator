@@ -40,17 +40,7 @@ function refreshFileTree(save = false){
 }
 
 function newFile(){
-    const name = prompt("Enter filename (no extensions!)");
-    if(name !== null && name !== ""){
-        if(!files.find(f => f.name === name)){
-            files.push(GetEmptyFileJson(name));
-            refreshFileTree(true);
-            loadFile(name);
-        }else
-            console.warn("A file with this name already exists!");
-    }else{
-        console.warn("No valid filename given.");
-    }
+    UI.Interface.NewFile();
 }
 
 function loadFile(lf){
@@ -63,4 +53,22 @@ function loadFile(lf){
         return;
     }
     DoUI(f);
+}
+
+function createFile(){
+    const text = document.getElementById("_ui_filename").value;
+    UI.Interface.ShowElements(false);
+    if(text !== null && text !== ""){
+        if(!files.find(f => f.name === text)){
+            files.push(GetEmptyFileJson(text));
+            refreshFileTree(true);
+            loadFile(text);
+            UI.Warning.Show(`File "${text}" created!`, "success", true);
+        }else
+            UI.Warning.Show(`File with name "${text}" already exists`, "warn");
+            console.warn("A file with this name already exists!");
+    }else{
+        UI.Warning.Show(`No valid filename given.`, "warn");
+        console.warn("No valid filename given.");
+    }
 }

@@ -55,3 +55,23 @@ input:focus{
     bottom: 2px;
     right: 2px;
 }
+
+#_uiBG{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    backdrop-filter: blur(8px);
+}
+
+#_ui{
+    backdrop-filter: blur(8px);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border: 1px solid rgba(0, 0, 0, calc(1 / 5));
+    padding: 5px;
+    border-radius: 5px;
+    transform: translate(-50%, -50%);
+}

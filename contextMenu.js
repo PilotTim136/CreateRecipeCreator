@@ -35,5 +35,6 @@ function deleteFile(name) {
         refreshFileTree();
         saveAll();
         console.log("Deleted file: ", name);
+        UI.Warning.Show(`File "${name}" deleted!`, "success", true);
     }
 }

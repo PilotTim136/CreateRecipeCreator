@@ -1,125 +1,96 @@
-const workspace = document.getElementById("workspace");
-const editor = document.getElementById("editor");
-let isMeta = false;
-let cud = null; //currentUIData
+var UI = {
+    bg: document.getElementById("_uiBG"),
+    element: document.getElementById("_ui"),
+    Interface: {
+        ShowElements: function(show = true){
+            UI.bg.hidden = !show;
+            UI.element.hidden = !show;
+        },
+        ClearUI: function(){
+            UI.element.innerHTML = "";
+        },
+        Append: function(append){
+            UI.element.innerHTML = append;
+        }
+    },
+    Warning: {
+        msgHTML: document.getElementById("warningMessages"),
+        totalWarnings: 0,
+        Styles: {
+            Okay: "color: black; background-color: white;",
+            Success: "color: white; background-color: green;",
+            Warn: "color: white; background-color: orange;",
+            Err: "color: white; background-color: red;"
+        },
+        Internal: {
+            wrns: []
+        },
+        Settings: {
+            fade: false
+        },
+        /**
+         * @param {string} text
+         * @param {string} type Type for warning-display (ok, success, warn, err)
+         * @param {bool} fromLog Please leave it at default - set to true if override is enabled but not logged.
+         */
+        Show: function(text, type = "ok", fromLog = false){
+            if(overrides.overrideLogs && !fromLog){
+                if(overrides.logs.warn && type === "warn") return;
+                if(overrides.logs.error && (type === "err" || type === "error")) return;
+            }
 
-function ClearWorkspace(){
-    editor.innerHTML = "";
-}
+            
+            const style = type === "ok" ? this.Styles.Okay :
+                type === "success" ? this.Styles.Success :
+                type === "warn" ? this.Styles.Warn : this.Styles.Err
+            
+            const fade = this.Settings.fade;
 
-function DoMetaUI(j){
-    isMeta = true;
-    cud = j;
-    const description = j.content?.description || "";
-    editor.innerHTML = `<code><center><h1>mcmeta</h1>This is the metadata file for your datapack.<br>
-    This is needed for minecraft to recognize your datapack.<br>
-    <button onclick="copyJSON('mcmeta')">Copy JSON</button>
-    <button onclick="downloadJSON('mcmeta')">Save JSON</button>
-    <button onclick="downloadZIP()">Save ZIP</button></center></code>
-    
-    Version: <select id="ver" name="options" onchange="SetFileData('pack_format', this.value)">
-        <option value="1.20.1">1.20.1 - Create 6.0.6</option>
-        <option value="1.21.1">1.21.1 - Create 6.0.6</option>
-    </select><br>
-    Description: <textarea id="desc" onchange="SetFileData('description', this.value)" rows="1" cols="46"
-    placeholder="A datapack created with Create Recipe Creator!">${description}</textarea><br>`;
-    LoadFileData(j);
-}
+            const ctn = document.createElement("div");
+            ctn.id = `elmt_warn_${this.totalWarnings}`;
+            ctn.textContent = text;
+            ctn.style = style + `bottom: ${65 * this.Internal.wrns.length}px; ${fade ? "opacity: 0;" : "left: calc(-100% - 20px);"}`;
 
-function DoUI(j){
-    isMeta = false;
-    cud = j;
-    const ctn = j.content || {};
-    const typeValue = j.content?.type || "compacting";
-    editor.innerHTML = `<code><center><h1>${j.name}</h1><button onclick="copyJSON('${j.name}')">Copy JSON</button>
-    <button onclick="downloadJSON('${j.name}')">Save JSON</button><br></center></code>
-    Type: <select id="type" onchange="SetFileData('type', this.value)">
-        <option value="compacting" ${typeValue === "compacting" ? "selected" : ""}>Compacting</option>
-        <option value="crushing" ${typeValue === "crushing" ? "selected" : ""}>Crushing</option>
-        <option value="deploying" ${typeValue === "deploying" ? "selected" : ""}>Deploying</option>
-        <option value="emptying" ${typeValue === "emptying" ? "selected" : ""}>Emptying</option>
-        <option value="filling" ${typeValue === "filling" ? "selected" : ""}>Filling</option>
-        <option value="haunting" ${typeValue === "haunting" ? "selected" : ""}>Haunting</option>
-        <option value="milling" ${typeValue === "milling" ? "selected" : ""}>Milling</option>
-        <option value="mixing" ${typeValue === "mixing" ? "selected" : ""}>Mixing</option>
-        <option value="pressing" ${typeValue === "pressing" ? "selected" : ""}>Pressing</option>
-        <option value="sandpaper_polishing" ${typeValue === "sandpaper_polishing" ? "selected" : ""}>Sandpaper polishing</option>
-        <option value="splashing" ${typeValue === "splashing" ? "selected" : ""}>Splashing</option>
-    </select><br>`
-    saveAll();
-    const totalblacklist = typeValue === "deploying" || typeValue === "emptying"
-        || typeValue === "filling" || typeValue === "haunting" || typeValue === "milling" || typeValue === "pressing"
-        || typeValue === "sandpaper_polishing" || typeValue === "splashing";
+            this.msgHTML.appendChild(ctn);
+            this.totalWarnings++;
+            this.Internal.wrns.push(ctn);
+            
+            ctn.getBoundingClientRect();
+            if(fade) ctn.style.opacity = "1";
+            else ctn.style.left = `0px`;
 
-    if(typeValue === "mixing" || typeValue === "compacting"){
-        const heat = j.content?.heatReq || "none";
-        editor.innerHTML += `Heat requirement: <select id="heatReq" onchange="SetFileData('heatReq', this.value)">
-            <option value="none" ${heat === "none" ? "selected" : ""}>None</option>
-            <option value="heated" ${heat === "heated" ? "selected" : ""}>Heated</option>
-            <option value="superheated" ${heat === "superheated" ? "selected" : ""}>Superheated</option>
-        </select><br>`;
+            setTimeout(() => {
+                if(fade) ctn.style.opacity = "0";
+                else ctn.style.left = `calc(-100% - 20px)`;
+
+                setTimeout(() => {
+                    if (ctn.parentNode){
+                        const idx = this.Internal.wrns.indexOf(ctn);
+                        this.Internal.wrns.splice(idx, 1);
+                        this.Internal.wrns.forEach((el, i) => {
+                            el.style.bottom = `${65 * i}px`;
+                        });
+                        ctn.remove();
+                    }
+                }, 500);
+            }, 5000);
+        }
     }
-    if(!totalblacklist) displayIngredients();
+};
 
-    if(!totalblacklist) displayResults();
-    else if(typeValue === "deploying"){
-        SpawnForcedIng(2, ctn, ["Item to deploy on", "Item that gets deployed"]);
-        editor.innerHTML += `Keep held item: <input type="checkbox" ${ctn?.keepHeld ? "checked" : ""} onchange="SetFileData('keepHeld', this.checked)"><br>`;
-        SpawnForcedRes(1, ctn);
-    }else if(typeValue === "emptying"){
-        SpawnForcedIng(1, ctn, ["Item to empty (e.g. minecraft:water_bucket)"]);
-        SpawnForcedRes(2, ctn, ["Item result (minecraft:bucket)", "Result as fluid (e.g. minecraft:water)"], [false, false]);
-    }else if(typeValue === "filling"){
-        SpawnForcedIng(2, ctn, ["Item to fill (e.g. minecraft:bucket)", "Fluid to fill with (e.g. minecraft:water)"]);
-        SpawnForcedRes(1, ctn, ["When filled (e.g. minecraft:water_bucket)"]);
-    }else if(typeValue === "haunting" || typeValue === "milling" || typeValue === "splashing"){
-        SpawnForcedIng(1, ctn);
-        displayResults(true);
-    }else if(typeValue === "pressing" || typeValue === "sandpaper_polishing"){
-        SpawnForcedIng(1, ctn);
-        SpawnForcedRes(1, ctn);
-    }
+UI.Interface.ShowElements(false);
 
-    if(typeValue === "crushing" || typeValue === "milling" || typeValue === "mixing"){
-        editor.innerHTML += `Processing time: <input type="number" value="${ctn?.processingTime || 0}" onchange="SetFileData('processingTime', this.value)">ticks<br>`;
-    }else{
-        SetFileData('processingTime', 0, false);
-    }
+UI.Interface.NewFile = function(){
+    const content = `<center>
+    <h3>New File</h3>
+    Please enter new Filename:<br>
+    <input id="_ui_filename"><br>
+    <button onclick="createFile()">Create File</button><br>
+    <button onclick="UI.Interface.ShowElements(false)">Cancel</button>
+    </center>`;
+
+    this.Append(content);
+    this.ShowElements();
 }
 
-function displayIngredients(){
-    editor.innerHTML += `<button onclick="AddIngredient()">New ingredient</button><br>`;
-    const e = validateIngredient(false);
-    if(!e) return;
-    if(!cud.content.ingredients) return;
-    cud.content.ingredients.forEach((ing, i) => {
-        editor.innerHTML += `<fieldset>
-        <button onclick="removeIngredient(${i})">Remove</button><br>
-        Fluid: <input type="checkbox" ${ing.isFluid ? "checked" : ""} onchange="SetFileData('ingredients.${i}.isFluid', this.checked)"><br>
-        Item: <input type="text" value="${ing.item || ""}" onchange="SetFileData('ingredients.${i}.item', this.value)" placeholder="ID"><br>
-        Count: <input type="number" min="1" max="1000" value="${ing.count || ""}" onchange="SetFileData('ingredients.${i}.count', this.value)" placeholder="item id"><br>
-        </fieldset>`;
-    });
-}
 
-function displayResults(forceItem = false){
-    editor.innerHTML += `<button onclick="AddResult()">New result</button><br>`;
-    const e = validateResults(false);
-    if(!e) return;
-    if(!cud.content.results) return;
-    cud.content.results.forEach((ing, i) => {
-        editor.innerHTML += `<fieldset>
-        <button onclick="removeResult(${i})">Remove</button><br>
-        ${GetFluid(forceItem, ing, i)}
-        Item: <input type="text" value="${ing.item || ""}" onchange="SetFileData('results.${i}.item', this.value)" placeholder="ID"><br>
-        Count: <input type="number" min="1" max="1000" value="${ing.count || 1}" onchange="SetFileData('results.${i}.count', this.value)" placeholder="item id"><br>
-        Chance: <input type="number" min="1" max="100" value="${ing.chance || 100}" onchange="SetFileData('results.${i}.chance', this.value)">%<br>
-        </fieldset>`;
-        if(forceItem) SetFileData(`results.${i}.isFluid`, false, false);
-    });
-}
-
-//needed for other scripts when inputs get changed
-function UIChange(){
-    DoUI(cud);
-}
