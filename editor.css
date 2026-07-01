@@ -1,4 +1,4 @@
-#projects{
+#projects {
     position: absolute;
     min-width: 200px;
     max-width: 400px;
@@ -11,7 +11,7 @@
     transform: translate(-50%, -50%);
 }
 
-#files{
+#files {
     display: flex; 
     position: absolute;
     top: 0;
@@ -22,14 +22,14 @@
     overflow-y: hidden;
 }
 
-#files button{
+#files button {
     flex: 1;
     margin: 2px;
     min-width: 50px;
     box-sizing: border-box;
 }
 
-#editor{
+#editor {
     position: absolute;
     top: 40px;
     left: 0;

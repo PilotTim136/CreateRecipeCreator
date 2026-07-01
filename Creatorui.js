@@ -18,8 +18,9 @@ function DoMetaUI(j){
     <button onclick="downloadZIP()">Save ZIP</button></center></code>
     
     Version: <select id="ver" name="options" onchange="SetFileData('pack_format', this.value)">
-        <option value="1.20.1">1.20.1 - Create 6.0.6</option>
-        <option value="1.21.1">1.21.1 - Create 6.0.6</option>
+        <option value="1.20.1-6.0.6">1.20.1 - Create 6.0.6</option>
+        <option value="1.21.1-6.0.6">1.21.1 - Create 6.0.6</option>
+        <option value="1.21.1-6.0.10">1.21.1 - Create 6.0.10</option>
     </select><br>
     Description: <textarea id="desc" onchange="SetFileData('description', this.value)" rows="1" cols="46"
     placeholder="A datapack created with Create Recipe Creator!">${description}</textarea><br>`;

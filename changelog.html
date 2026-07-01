@@ -20,10 +20,32 @@
     </center>
     <hr>
     <fieldset>
+        <h3>1.3.2 - Generator update</h3>
+        <ul>
+            <li>Added a new generator for <code>Create 6.0.10</code> with improved stability and stricter data validation</li>
+            <label>Why? - The Create mod received an update and the old generator needed adjustments to match internal behavior changes.</label>
+            <br><br>
+
+            <li>Made changes to the CSS (<code>style.css</code> and <code>editor.css</code>)</li>
+            <label>Why? - For better color-schemes and UX; Generally a little darker.</label>
+        </ul>
+    </fieldset>
+    <fieldset>
+        <h3>1.3.1 - Minor bugfix</h3>
+        <ul>
+            <li>Fixed when typing invalid filename in URL (<code>create.html?project=testing&file=no</code>) will give error in log and show blank screen</li>
+            <label>Fix? - Rerouting to <code>mcmeta</code> and giving an error to the user via the notification system.</label><br><br>
+
+            <li>Made generators more futureproof (dropdown now contains information about the create version, not only minecraft version)</li>
+            <label>Why? - If versions like 1.21.1 get multiple updates that change the way recipes are handled.</label>
+        </ul>
+    </fieldset>
+    <fieldset>
         <h3>1.3.0 - The UI Update</h3>
         <ul>
             <li>Made new-file (+) have a nicer UI instead of using <code>prompt</code></li>
-            <label>Why? - This is for a better user-experience and nicer UI</label>
+            <label>Why? - This is for a better user-experience and nicer UI</label><br><br>
+
             <li>Added notifications
                 <button onclick="ShowTest()">Example Notification (swipe)</button>
                 <button onclick="ShowTest(true)">Example Notification (fades)</button>

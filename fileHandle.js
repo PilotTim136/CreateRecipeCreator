@@ -47,6 +47,13 @@ function loadFile(lf){
     saveAll();
     console.log("Loading file: " + lf);
     const f = files.find(file => file.name === lf);
+    if(!f){
+        const t = `Error loading "${lf}". File does not exist.`;
+        UI.Warning.Show(t, "err");
+        console.error(t);
+        loadFile("mcmeta");
+        return;
+    }
     currentFile = f.name;
     if(f.name === "mcmeta"){
         DoMetaUI(f);

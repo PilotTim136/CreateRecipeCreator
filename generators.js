@@ -14,10 +14,13 @@ var qGenerator = {};
  * @param {string} mc minecraft version (1.20.1, 1.21.1, ...)
  * @param {string} mod mod version (6.0.6, ...)
  */
-function GetCombined(name, mc, mod){
+function GetCombined(name, mc, mod = ""){
     let mcver = mc.replaceAll(".", "_");
-    let modver = mod.replaceAll(".", "_");
-    return `${name}-${mcver}-${modver}`;
+    if(mod !== ""){
+        let modver = mod.replaceAll(".", "_");
+        return `${name}-${mcver}-${modver}`;
+    }
+    return `${name}-${mcver}`;
 }
 
 /**
@@ -44,3 +47,4 @@ function RegisterGenerator(name, mc, mod){
 //register generators
 RegisterGenerator("create", "1.20.1", "6.0.6");
 RegisterGenerator("create", "1.21.1", "6.0.6");
+RegisterGenerator("create", "1.21.1", "6.0.10");

@@ -1,7 +1,7 @@
 function GetJSON(name){
     const f = files.find(file => file.name === name);
     if(!f) return;
-    const c = GetCombined("create", ver, "6.0.6");
+    const c = GetCombined("create", ver);
     console.log(`using generator "${c}"`);
     if(qGenerator[c]) return qGenerator[c]();
     else{
